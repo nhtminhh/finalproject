@@ -1,5 +1,13 @@
 <h1 >Product list</h1>
 <a type="button" class="btn btn-info" href="/product/add">Add</a>
+<a type="button" class="green btn" href="/product/sort/name">Sort by name</a>
+<a type="button" class="green btn" href="/product/sort/price">Sort by price</a>
+
+
+
+<form action="/product/search" method="post">
+    <input type="search" name="keyword" id="" placeholder="Search by product name" required>
+</form>
 <br><br>
 <table class="striped centered responsive-table">
     <tr>

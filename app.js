@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 //3A. declare router (1 collection => 1 router)
 var productRouter = require('./routes/product');
 var categoryRouter = require('./routes/category');
+//var authRouter = require('./routes/auth');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use('/users', usersRouter);
 //3B. declare URL (path) of routers
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
+//app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
