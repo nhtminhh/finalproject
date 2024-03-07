@@ -1,0 +1,31 @@
+<h1 >Product list</h1>
+<a type="button" class="btn btn-info" href="/product/add">Add</a>
+<br><br>
+<table class="striped centered responsive-table">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sold</th>
+        <th>Image</th>
+        <th>Category</th>
+        <th>Menu</th>
+    </tr>
+    {{#each productList }}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{price}}</td>
+        <td>{{remaining}}</td>
+        <td>{{sold}}</td>
+        <td>
+            <img src="{{image}}" width="100" height="100"> 
+        </td>
+        <td>{{category.name}}</td>
+        <td>
+            <a type="button" class="btn orange" href="/product/edit/{{_id}}">Edit</a>
+            <a type="button" class="btn red" href="/product/delete/{{_id}}"  onclick="return confirm('Do you want to delete this product')">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+

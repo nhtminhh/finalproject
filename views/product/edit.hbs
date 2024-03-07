@@ -1,0 +1,52 @@
+<form action="" method="post">
+   <h4 class="center-align bold">Edit new Product</h4>
+   <div class="row">
+      <div class="input-field col s12 m4 offset-m4">
+         <label for="">Product name:</label>
+         <input class="validate" type="text" name="name" id="" value="{{product.name}}">
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-field col s12 m4 offset-m4">
+         <label for="">Product price</label>
+         <input class="validate" type="text" name="price" id="" value="{{product.price}}" >
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-field col s12 m4 offset-m4">
+         <label for="">Product quantity</label>
+         <input class="validate" type="text" name="quantity" id="" value="{{product.remaining}}">
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-field col s12 m4 offset-m4">
+         <label for="">Product image</label>
+         <input class="validate" type="url" name="quantity" id="" value="{{product.image}}">
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-field col s12 m4 offset-m4">
+         <img src="{{ product.image }}" alt="" width="120" height="120">
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m4 offset-m4">
+         <label for="">Product category</label>
+   <select name="category" id="">
+    {{#each categoryList }}
+    <option value="{{product.category}}">
+      {{ name }}
+    </option>
+    {{/each}}
+  </select>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col s12 m4 offset-m4 center-align">
+         <input class="btn" type="submit" value="Edit">
+      </div>
+   </div>
+</form>
+

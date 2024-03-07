@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    
+    {{!------Navigation bar ------}}
+    <div class="container">
+    <nav class="bold upper">
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="">Home</a></li>
+        <li><a href="">Customer</a></li>
+        <li><a href="/product">Product</a></li>
+        <li><a href="/category">Category</a></li>
+        <li><a href="">Order</a></li>
+
+      </ul>
+    </div>
+  </nav>
+
+
+    {{{body}}}
+
+        {{!------Footer------}}
+        <footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2024 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+
+  </div>
+  </body>
+</html>
