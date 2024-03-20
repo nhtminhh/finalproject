@@ -1,6 +1,7 @@
 var express = require('express');
 const ProductModel = require('../models/ProductModel');
 const CategoryModel = require('../models/CategoryModel');
+const { checkSingleSession, checkMultipleSession } = require('../middlewares/auth');
 const { Model } = require('mongoose');
 var router = express.Router();
 
@@ -8,20 +9,31 @@ var router = express.Router();
 //URL:  localhost:3000/product
 //SQL: SELECT * FROM product
 //IMPORTANCE: muse inlude "async", "await"
-router.get('/', async (req, res) =>{
-    var productList = await ProductModel.find({}).populate('category');
-    //load data
-    //res.send(productList);
-    //File location: views/product/index.hbs
+// router.get('/', async (req, res) =>{
+//     var productList = await ProductModel.find({}).populate('category');
+//     //load data
+//     //res.send(productList);
+//     //File location: views/product/index.hbs
 
-    // { layout: 'layout_name'} => set custom layout
-    res.render('product/index', {productList, layout: 'layout2'});
+//     // { layout: 'layout_name'} => set custom layout
+//    //  res.render('product/index', {productList, layout: 'layout2'});
+//     res.render('product/index', {productList});
+
+// });
+
+router.get('/', checkMultipleSession(['customer', 'admin', 'manager']), async (req, res) => {
+   var productList = await ProductModel.find({}).populate('category');
+   if (req.session.role == "customer"){
+      res.render('product/indexUser', { productList });
+   }
+   else
+      res.render('product/index', { productList });
 });
 
 router.get('/add', async (req, res) =>
 {
     var categoryList = await CategoryModel.find({});
-    res.render('product/add', {categoryList, layout: 'layout2'});
+    res.render('product/add', {categoryList});
 });
 
 router.post('/add', async(req,res)=>{
@@ -36,7 +48,7 @@ router.post('/add', async(req,res)=>{
 router.get('/edit/:id', async (req, res) => {
     var id = req.params.id;
     var product = await ProductModel.findById(id);
-    res.render('product/edit', { product, layout: 'layout2' });
+    res.render('product/edit', { product });
  })
  
  router.post('/edit/:id', async (req, res) => {
@@ -55,17 +67,17 @@ router.get('/edit/:id', async (req, res) => {
 
  router.post('/search', async (req, res) => {
     var kw = req.body.keyword;
-    var productList = await ProductModel.find({name: new RegExp(kw, "i")}) ;
+    var productList = await ProductModel.find({name: new RegExp(kw, "i")}).populate('category') ;
     res.render('product/index', {productList});
  });
 
  router.get('/sort/name', async (req, res)=>{
-    var productList = await ProductModel.find().sort({name: 1});
+    var productList = await ProductModel.find().sort({name: 1}).populate('category');
     res.render('product/index', {productList});
  });
 
  router.get('/sort/price', async (req, res)=>{
-    var productList = await ProductModel.find().sort({price: 1});
+    var productList = await ProductModel.find().sort({price: 1}).populate('category');
     res.render('product/index', {productList});
  });
 

@@ -5,13 +5,24 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 //3A. declare router (1 collection => 1 router)
 var productRouter = require('./routes/product');
 var categoryRouter = require('./routes/category');
-//var authRouter = require('./routes/auth');
+var authRouter = require('./routes/auth');
 
 var app = express();
+
+//import "express-session" library
+var session = require('express-session');
+//set session timeout
+const timeout = 10000 * 60 * 60 * 24;  // 24 hours (in milliseconds)
+//config session parameters
+app.use(session({
+  secret: "practice_makes_perfect",  // Secret key for signing the session ID cookie
+  resave: false,                     // Forces a session that is "uninitialized" to be saved to the store
+  saveUninitialized: true,           // Forces the session to be saved back to the session store
+  cookie: { maxAge: timeout },
+}));
 
 //1.config mongoose library (connect and work with database)
 //1.A connect db
@@ -41,12 +52,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//make session value can be accessible in view (hbs)
+//IMPORTANT: place this code before setting router url
+app.use((req, res, next) => {
+  res.locals.name = req.session.name;
+  next();
+});
+
+//set user authorization for whole router
+//IMPORTANT: place this code before setting router url
+const { checkSingleSession } = require('./middlewares/auth');
+app.use('/category', checkSingleSession);
+app.use('/product', checkSingleSession);
+
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 //3B. declare URL (path) of routers
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
-//app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
