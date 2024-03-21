@@ -24,13 +24,13 @@ var router = express.Router();
 router.get('/', checkMultipleSession(['customer', 'admin', 'manager']), async (req, res) => {
    var productList = await ProductModel.find({}).populate('category');
    if (req.session.role == "customer"){
-      res.render('product/indexUser', { productList });
+      res.render('product/indexUser', { productList, layout: 'layout2' });
    }
    else
       res.render('product/index', { productList });
 });
 
-router.get('/add', async (req, res) =>
+router.get('/add', checkSingleSession, async (req, res) =>
 {
     var categoryList = await CategoryModel.find({});
     res.render('product/add', {categoryList});
@@ -68,7 +68,11 @@ router.get('/edit/:id', async (req, res) => {
  router.post('/search', async (req, res) => {
     var kw = req.body.keyword;
     var productList = await ProductModel.find({name: new RegExp(kw, "i")}).populate('category') ;
-    res.render('product/index', {productList});
+    if (req.session.role == "customer"){
+      res.render('product/indexUser', { productList, layout: 'layout2' });
+   }
+   else
+      res.render('product/index', { productList });
  });
 
  router.get('/sort/name', async (req, res)=>{

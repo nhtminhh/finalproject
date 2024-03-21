@@ -11,15 +11,20 @@
       <th>Product price</th>
       <th>Product image</th>
       <th>Product category</th>
+      <th>Selection</th>
+
    </tr>
    {{#each productList }}
    <tr>
       <td>{{ name }}</td>
       <td>${{ price }}</td>
       <td>
-         <img src="/images/{{ image }}" width="100" height="100">
+         <img src="{{ image }}" width="100" height="100">
       </td>
       <td>{{ category.name }}</td>
+      <td>
+         <a type="button" class="btn btn-info"><i class="material-icons">add_shopping_cart</i></a>
+      </td>
    </tr>
    {{/each}}
 </table>

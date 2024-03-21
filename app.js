@@ -65,7 +65,6 @@ const { checkSingleSession } = require('./middlewares/auth');
 app.use('/category', checkSingleSession);
 app.use('/product', checkSingleSession);
 
-
 app.use('/', indexRouter);
 //3B. declare URL (path) of routers
 app.use('/category', categoryRouter);

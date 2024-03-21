@@ -1,0 +1,20 @@
+<h1 style="text-align: center;">Admin list</h1>
+<br><br>
+<table class="table table-primary">
+    <tr>
+        <th>Name</th>
+        <th>Date of birth</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Email</th>
+    </tr>
+    {{#each adminList }}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{dob}}</td>
+        <td>{{gender}}</td>
+        <td>{{address}}</td>
+        <td>{{email}}</td>
+    </tr>
+    {{/each}}
+</table>
