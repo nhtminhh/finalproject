@@ -1,9 +1,9 @@
-<h1 style="text-align: center;">Customer list</h1>
-<form action="/auth/customer/search" method="post">
+<h5 style="text-align: center;">CUSTOMER</h5>
+<form class="col s12 m4" action="/auth/customer/search" method="post">
     <input type="search" name="keyword" id="" placeholder="Search customer by name" required>
 </form>
 <br><br>
-<table class="table table-primary">
+<table class="table table-striped table-dark">
     <tr>
         <th>Name</th>
         <th>Date of birth</th>
@@ -21,10 +21,10 @@
         <td>{{email}}</td>
         <td>
             <a type="button" class="btn orange" href="/auth/customer/edit/{{_id}}">
-                <i class="material-icons">edit</i>
+                <i class="bi bi-person-fill-gear"></i>
             </a>
             <a type="button" class="btn red" href="/auth/customer/delete/{{_id}}" onclick="return confirm('Do you want to delete this customer?')">
-                <i class="material-icons">delete</i>
+                <i class="bi bi-person-fill-dash"></i>
             </a>
         </td>
     </tr>
