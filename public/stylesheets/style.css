@@ -1,6 +1,23 @@
-body {
-  padding: 50px;
+.body-1 {
+  padding: 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color:#808080	;
+
+  /* background-image: url('https://st5.depositphotos.com/14323266/66016/i/450/depositphotos_660163400-stock-photo-seamless-fast-food-pattern-fast.jpg'); */
+}
+
+.body-2 {
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /* background-image: url('https://st5.depositphotos.com/14323266/66016/i/450/depositphotos_660163400-stock-photo-seamless-fast-food-pattern-fast.jpg'); */
+
+  background-color:azure;
 }
 
 a {
@@ -11,3 +28,18 @@ a {
   color: red;
   background-color: yellow;
 }
+
+
+main {
+  flex: 1 0 auto;
+}
+
+h5{
+  color:white; 
+  text-align: center;
+  font-weight: bold;
+
+}
+
+
+

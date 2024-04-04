@@ -22,7 +22,7 @@
    <div class="row">
       <div class="input-field col s12 m4">
          <label for="">Product image</label>
-         <input class="validate" type="url" name="quantity" id="" value="{{product.image}}" required autocomplete="off">
+         <input class="validate" type="url" name="image" id="" value="{{product.image}}" required autocomplete="off">
       </div>
    </div>
    <div class="row">
@@ -41,6 +41,12 @@
     </option>
     {{/each}}
   </select>
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-field col s12 m4">
+         <label for="">Description</label>
+         <input class="validate" type="text" name="description" id="" value="{{product.description}}" required minlength="1" autocomplete="off">
       </div>
    </div>
 

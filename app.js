@@ -56,6 +56,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //IMPORTANT: place this code before setting router url
 app.use((req, res, next) => {
   res.locals.name = req.session.name;
+  res.locals.id = req.session.id;
+  res.locals.role = req.session.role;
   next();
 });
 

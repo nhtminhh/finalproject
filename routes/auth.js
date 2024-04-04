@@ -25,6 +25,7 @@ router.get('/register', (req, res) => {
          role: 'customer'
       }
       await UserModel.create(user);
+      console.log(user);
       res.redirect('/auth/login')
    } catch (err) {
       res.send(err)
@@ -46,19 +47,22 @@ router.post('/login', async (req, res) => {
             //initialize session after login success
             req.session.name = user.name;
             req.session.role = user.role;
+            req.session.id = user.id;
             var a = user.role
             var b = user.name;
+            var c = user.id;
             console.log(a);
             console.log(b);
+            console.log(c);
 
             if (user.role == 'admin') {
-               res.redirect('/admin');
+               res.redirect('/product');
             }
             else if(user.role == 'manager'){
-               res.redirect('/manager')
+               res.redirect('/product')
             }
             else {
-               res.redirect('/customer');
+               res.redirect('/product');
             }
          }
          else {
@@ -85,7 +89,7 @@ router.post('/manager/add', async (req, res) =>{
    try {
       var userRegistration = req.body;
       var hashpassword = bcrypt.hashSync(userRegistration.password, salt);
-      var user = {
+      var manager = {
          name: userRegistration.name,
          dob: userRegistration.dob,
          gender: userRegistration.gender,
@@ -94,12 +98,21 @@ router.post('/manager/add', async (req, res) =>{
          password: hashpassword,
          role: 'manager'
       }
-      await UserModel.create(user);
-      res.redirect('manager/index')
+      await UserModel.create(manager);
+      console.log(user);
+      res.redirect('/manager/index')
    } catch (err) {
       res.send(err)
    }
 });
+
+router.get('/manager/edit/:id', async (req, res) =>{
+   var id = req.params.id;
+   var manager = await UserModel.findById(id);
+   res.render('manager/edit', {manager})
+});
+
+
 
 router.get('/manager/delete/:id', async (req, res) => {
    //req.params: get value by url
@@ -109,11 +122,18 @@ router.get('/manager/delete/:id', async (req, res) => {
 });
 
 
-//--------------------READ ADMIN---------------------------------------
+//--------------------RU ADMIN---------------------------------------
 router.get('/admin', async (req, res) =>{
    var adminList = await UserModel.find({role: 'admin'});
    res.render('admin/index', {adminList});
 });
+
+router.get('/admin/detail/:id', async (req, res) =>{
+   var id = req.params.id;
+   var admin = await UserModel.findById(id);
+   res.render('admin/detail', {admin});
+});
+
 
 //-----------------RUD CUSTOMER---------------------------------------
 router.get('/customer', async (req, res) =>{
@@ -133,10 +153,18 @@ router.post('/customer/search', async (req, res) => {
    res.render('customer/index', { customerList })
 })
 
+router.get('/customer/detail/:id', async (req, res) =>{
+   var id = req.body.id;
+   var customer = await UserModel.findById(id);
+   console.log(id);
+   res.render('customer/detail', {customer, layout: 'layout2'});
+});
+
 
 
 //-------------------------LOGOUT-------------------------------------
  router.get('/logout', (req, res) => {
+   req.session.destroy();
    res.redirect("/auth/login");
 });
 

@@ -10,6 +10,7 @@ var ProductSchema = mongoose.Schema(
         remaining: Number,
         sold: Number,
         image: String,
+        description: String,
         category: {           //"category"    : name of reference field
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'categories'  //"categories"  : name of reference collection
