@@ -1,9 +1,12 @@
 var express = require('express')
 const UserModel = require('../models/UserModel');
 var router = express.Router()
+const moment = require('moment');
+
 
 //import "bcryptjs" library
 var bcrypt = require('bcryptjs');
+const { checkAdminSession } = require('../middlewares/auth');
 var salt = 8;                     
 //random value
 
@@ -15,6 +18,7 @@ router.get('/register', (req, res) => {
    try {
       var userRegistration = req.body;
       var hashpassword = bcrypt.hashSync(userRegistration.password, salt);
+      // var dobFormatted = moment(userRegistration.dob).format('DD/MM/YYYY');
       var user = {
          name: userRegistration.name,
          dob: userRegistration.dob,
@@ -75,17 +79,17 @@ router.post('/login', async (req, res) => {
 });
 
 // -----------------------CRUD MANAGER--------------------------------
-router.get('/manager', async (req, res) =>{
+router.get('/manager', checkAdminSession, async (req, res) =>{
    var managerList = await UserModel.find({role: 'manager'});
    //load data
    res.render('manager/index', {managerList});
 });
 
-router.get('/manager/add', (req, res) => {
+router.get('/manager/add', checkAdminSession, (req, res) => {
    res.render('manager/add')
 });
 
-router.post('/manager/add', async (req, res) =>{
+router.post('/manager/add', checkAdminSession, async (req, res) =>{
    try {
       var userRegistration = req.body;
       var hashpassword = bcrypt.hashSync(userRegistration.password, salt);
@@ -106,7 +110,7 @@ router.post('/manager/add', async (req, res) =>{
    }
 });
 
-router.get('/manager/edit/:id', async (req, res) =>{
+router.get('/manager/edit/:id', checkAdminSession, async (req, res) =>{
    var id = req.params.id;
    var manager = await UserModel.findById(id);
    res.render('manager/edit', {manager})
@@ -114,7 +118,7 @@ router.get('/manager/edit/:id', async (req, res) =>{
 
 
 
-router.get('/manager/delete/:id', async (req, res) => {
+router.get('/manager/delete/:id', checkAdminSession, async (req, res) => {
    //req.params: get value by url
    var id = req.params.id;
    await UserModel.findByIdAndDelete(id);
@@ -123,7 +127,7 @@ router.get('/manager/delete/:id', async (req, res) => {
 
 
 //--------------------RU ADMIN---------------------------------------
-router.get('/admin', async (req, res) =>{
+router.get('/admin', checkAdminSession, async (req, res) =>{
    var adminList = await UserModel.find({role: 'admin'});
    res.render('admin/index', {adminList});
 });
@@ -136,18 +140,18 @@ router.get('/admin/detail/:id', async (req, res) =>{
 
 
 //-----------------RUD CUSTOMER---------------------------------------
-router.get('/customer', async (req, res) =>{
+router.get('/customer', checkAdminSession, async (req, res) =>{
    var customerList = await UserModel.find({role: 'customer'});
    res.render('customer/index', {customerList});
 });
 
-router.get('/customer/delete/:id', async (req, res) => {
+router.get('/customer/delete/:id', checkAdminSession, async (req, res) => {
    var id = req.params.id;
    await UserModel.findByIdAndDelete(id);
    res.redirect('/auth/customer');
 });
 
-router.post('/customer/search', async (req, res) => {
+router.post('/customer/search', checkAdminSession, async (req, res) => {
    var keyword = req.body.keyword;
    var customerList = await UserModel.find({ name: new RegExp(keyword, "i")});
    res.render('customer/index', { customerList })

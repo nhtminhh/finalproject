@@ -17,6 +17,25 @@ const checkLoginSession = (req, res, next) => {
        return;
     }
  }
+
+ const checkAdminSession = (req, res, next) => {
+   if (req.session.name && req.session.role == 'admin') {
+      next();
+   }
+   else {
+      res.redirect('/auth/login');
+      return;
+   }
+}
+const checkCustomerSession = (req, res, next) => {
+   if (req.session.name && req.session.role == 'customer') {
+      next();
+   }
+   else {
+      res.redirect('/auth/login');
+      return;
+   }
+}
  
  //check multiple roles
  const checkMultipleSession = (allowedRoles) => (req, res, next) => {
@@ -30,7 +49,9 @@ const checkLoginSession = (req, res, next) => {
  module.exports = {
     checkLoginSession,
     checkSingleSession,
-    checkMultipleSession
+    checkMultipleSession,
+    checkAdminSession,
+    checkCustomerSession
  }
  
  

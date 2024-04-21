@@ -1,6 +1,6 @@
-<div class="container col s6" style="background-color: #606666;">
+{{!-- <div class="container col s6" style="background-color: #606666;">
 <form action="/manager/add" method="post">
-   <h5 class="center-align bold">EDIT MANAGER</h5>
+   <h5 class="center-align bold"><b>EDIT MANAGER</b></h5>
    <div class="row">
       <div class="input-field col s12 m4">
          <label>Name</label>
@@ -12,7 +12,7 @@
          <label>Password</label>
          <input class="validate" type="password" name="password" required id="password" autocomplete="off" value="{{manager.password}}">
       </div>
-   </div>
+   </div> --}}
    {{!-- <div class="row">
       <div class="input-field col s12 m4">
          <label>Retype Password</label>
@@ -20,7 +20,7 @@
          <input class="validate" type="password" name="retype" required id="retype" autocomplete="off" value="{{manager.password}}">
       </div>
    </div> --}}
-   <div class="row">
+   {{!-- <div class="row">
       <div class="input-field col s12 m4">
          <label>Date of birth</label>
          <br><br>
@@ -56,4 +56,143 @@
       </div>
    </div>
 </form>
+</div> --}}
+
+
+<div
+  class="container col s6"
+  style="background-color: #667470; border-radius: 10px; padding: 15px"
+>
+  <form action="" method="post">
+    <h5 class="center-align bold"><b>ADD MANAGER</b></h5>
+    <div class="row mb-4">
+      <label for=""><b>Name</b></label>
+
+      <div class="form-outline" style="padding-top: 5px">
+        <input
+          class="validate form-control"
+          type="text"
+          name="name"
+          id="name"
+          required
+          minlength="3"
+          autocomplete="off"
+          placeholder="Name"
+          value="{{manager.name}}"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <label for=""><b>Password</b></label>
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="password"
+            name="password"
+            id="password"
+            required
+            min="1"
+            autocomplete="off"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <label for=""><b>Retype Passoword</b></label>
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="password"
+            name="retype"
+            id="retype"
+            required
+            min="1"
+            autocomplete="off"
+            placeholder="Retype password"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <label for=""><b>Date of birth</b></label>
+
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="date"
+            name="dob"
+            id="dob"
+            required
+            min="1"
+            autocomplete="off"
+            value="{{manager.dob}}"
+
+          />
+        </div>
+      </div>
+      <div class="col">
+        <label for=""><b>Gender</b></label>
+
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="text"
+            name="gender"
+            id="gender"
+            required
+            min="1"
+            autocomplete="off"
+            placeholder="Gender"
+            value="{{manager.gender}}"
+
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for=""><b>Email</b></label>
+
+      <div class="form-outline mb-4" style="padding-top: 5px">
+        <input
+          class="validate form-control"
+          type="text"
+          name="email"
+          id="email"
+          required
+          autocomplete="off"
+          placeholder="Email"
+          value="{{manager.email}}"
+
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <label for=""><b>Address</b></label>
+      <div class="form-outline mb-4" style="padding-top: 5px">
+        <input
+          class="form-control"
+          id="address"
+          placeholder="Address"
+          type="text"
+          autocomplete="off"
+          name="address"
+          minlength="1"
+         value="{{manager.address}}"
+
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-outline mb-4">
+        <input class="btn btn-success" type="submit" value="Edit" />
+      </div>
+    </div>
+
+  </form>
 </div>

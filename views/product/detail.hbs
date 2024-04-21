@@ -1,18 +1,19 @@
 
 <div class="container">
+    <h3 style="text-align: center;"><b>Product Detail</b></h3>
     <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn" style="background-color: black; margin-top: 10px">
+        <div class="col-md-7 col-lg-3 mb-5 mb-lg-0 wow fadeIn" style="background-color: black; margin-top: 10px">
             <div class="card border-0 shadow">
-                <img src="{{product.image}}" width="264" height="263" alt="...">
+                <img src="/images/{{product.image}}" width="300" height="300" alt="...">
                 <div class="card-body p-1-9 p-xl-5">
                     <div class="mb-1">
                         <h3 class="h4 mb-0" style="font-weight: bold; text-align:center; color:darkblue">{{product.name}}</h3>
-                        <a href="#" class="btn btn-success" style="margin-left: 23px; margin-top: 10px">Add to cart</i></a>
+                        {{!-- <a href="#" class="btn btn-success" style="margin-left: 23px; margin-top: 10px">Add to cart</i></a> --}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div class="ps-lg-1-6 ps-xl-5">
                 <div class="mb-5 wow fadeIn">
                     <h6><b>Name: </b> {{product.name}}</h6>
@@ -20,7 +21,6 @@
                     <h6><b>Category:</b> {{product.category.name}}</h6>
                     <h6><b>Sold:</b> {{product.sold}}</h6>
                     <h6><b>Description:</b> {{product.description}}</h6>
-                    <h6><b>Comment:</h6>
                 </div>
             </div>
         </div>

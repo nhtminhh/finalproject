@@ -1,4 +1,4 @@
-<h5 style="text-align: center;">MANAGER</h5>
+<h5 style="text-align: center;"><b>MANAGER</b></h5>
 <a type="button" class="btn btn-info" href="/auth/manager/add">
     <i class="bi bi-person-fill-add"></i>
 </a>
@@ -20,10 +20,10 @@
         <td>{{address}}</td>
         <td>{{email}}</td>
         <td>
-            <a type="button" class="btn orange" href="/auth/manager/edit/{{_id}}">
+            <a type="button" class="btn btn-warning" href="/auth/manager/edit/{{_id}}">
                 <i class="bi bi-person-fill-gear"></i>
             </a>
-            <a type="button" class="btn red" href="/auth/manager/delete/{{_id}}" onclick="return confirm('Do you want to delete this manager?')">
+            <a type="button" class="btn btn-danger" href="/auth/manager/delete/{{_id}}" onclick="return confirm('Do you want to delete this manager?')">
                 <i class="bi bi-person-fill-dash"></i>
             </a>
         </td>

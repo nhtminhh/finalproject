@@ -3,7 +3,6 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="/scripts/materializecss.js"></script>
     <script src="/scripts/validation.js"></script>
     <script>
       $(".dropdown-trigger").dropdown();
@@ -11,61 +10,38 @@
 
       <!-- Compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </head>
   <body class="body-2">
-    
-    {{!------Navigation bar ------}}
-    <div class="container">
-    <nav class="bold upper">
-    <div class="nav-wrapper">
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="">Home</a></li>
-        <li><a href="/product">Product</a></li>
-        <li><a href="#">Order</a></li>
-        <li><a class="dropdown">Category</a></li>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li>
-                          <a class="dropdown-item" href="/auth/admin">
-                            <i class="bi bi-person-fill"></i>
-                            Admin
-                          </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="/auth/manager">
-                            <i class="bi bi-person-fill"></i>
-                            Manager
-                          </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="/auth/customer">
-                            <i class="bi bi-person-fill"></i>
-                          Customer
-                          </a>
-                        </li>
-                    </ul>
-      </ul>
-      
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>
-          <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi-person-circle"></i>
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-3 px-0" style="background-color: #194853;">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" >
+              <div class="dropdown pb-4" style="margin-top: 10px;">
+                    <a href="#" style="color: white;" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fs-4 bi-person-circle"></i>
                         <span class="d-none d-sm-inline mx-1">{{name}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow">
                         <li>
-                          <a class="dropdown-item" href="/auth/customer/detail/{{id}}">
-                            <i class="fs-4 bi-person-fill"></i>
+                          <a class="dropdown-item" href="/auth/admin/detail/{{_id}}">
+                            <i class="bi bi-person-fill"></i>
                             View Profile
                           </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">
+                            <i class="bi bi-person-fill-gear"></i>
+                            Edit Profile
+                          </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
                         </li>
                         <li>
                           <a class="dropdown-item" href="/auth/logout">
@@ -75,23 +51,42 @@
                         </li>
                     </ul>
                 </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="#" style="color: white;" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house-fill"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/product" style="color: white;" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-box-fill"></i> 
+                            <span class="ms-1 d-none d-sm-inline">Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/cart" style="color: white;" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-cart-fill"></i>
+                            <span class="ms-1 d-none d-sm-inline">Cart</span></a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+
+  <div class="col py-3">
 
 
     {{{body}}}
 
         {{!------Footer------}}
-        <footer class="page-footer">
+        {{!-- <footer class="page-footer">
           <div class="footer-copyright">
             <div class="container">
             © 2024 Copyright Text
             <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
           </div>
-        </footer>
+        </footer> --}}
 
   </div>
   </body>

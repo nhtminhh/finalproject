@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var productRouter = require('./routes/product');
 var categoryRouter = require('./routes/category');
 var authRouter = require('./routes/auth');
+var cartRouter = require('./routes/cart');
 
 var app = express();
 
@@ -63,15 +64,19 @@ app.use((req, res, next) => {
 
 //set user authorization for whole router
 //IMPORTANT: place this code before setting router url
-const { checkSingleSession } = require('./middlewares/auth');
+
+const { checkSingleSession, checkAdminSession, checkCustomerSession } = require('./middlewares/auth');
 app.use('/category', checkSingleSession);
 app.use('/product', checkSingleSession);
+app.use('/cart', checkCustomerSession);
+
 
 app.use('/', indexRouter);
 //3B. declare URL (path) of routers
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
+app.use('/cart', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

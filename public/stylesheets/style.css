@@ -5,8 +5,6 @@
   min-height: 100vh;
   flex-direction: column;
   background-color:#808080	;
-
-  /* background-image: url('https://st5.depositphotos.com/14323266/66016/i/450/depositphotos_660163400-stock-photo-seamless-fast-food-pattern-fast.jpg'); */
 }
 
 .body-2 {
@@ -40,6 +38,8 @@ h5{
   font-weight: bold;
 
 }
+
+
 
 
 

@@ -1,25 +1,41 @@
-<div class="container col s6" style="background-color: #606666;">
-<form class="" action="" method="post">
-   <h5 class="center-align bold">NEW CATEGORY</h5>
-   <div class="row">
-      <div class="input-field col s12 m4">
-         <label for="">Category name</label>
-         <input class="validate" type="text" autocomplete="off" name="name" id="" required>
-      </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4">
-         <label for="">Category description</label>
-         <input class="validate" type="text" name="description" id="" autocomplete="off" required>
-      </div>
-   </div>
-   <div class="row">
-      <div class="col s12 m4 center-align">
-         <input class="btn" type="submit" value="Add">
-      </div>
-   </div>
-</form>
-</div>
 
+<div class="container col s6" style="background-color: #667470; border-radius: 10px; padding: 15px">
+  <form action="" method="post">
+    <h5 class="center-align bold"><b>NEW PRODUCT</b></h5>
+    <div class="row mb-4">
+      <label for=""><b>Category</b></label>
+      <div class="form-outline" style="padding-top: 5px">
+        <input
+          class="validate form-control"
+          type="text"
+          name="name"
+          id=""
+          required
+          minlength="3"
+          autocomplete="off"
+          placeholder="Category name"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <label for=""><b>Description</b></label>
+      <div class="form-outline mb-4" style="padding-top: 5px">
+        <input
+          class="validate form-control"
+          type="text"
+          name="description"
+          id=""
+          required
+          autocomplete="off"
+          placeholder="Category description"
+        />
+      </div>
+    </div>
+      <div class="form-outline mb-4">
+        <input class="btn btn-success" type="submit" value="Add" />
+      </div>
+    </div>
+  </form>
+</div>
 
 
