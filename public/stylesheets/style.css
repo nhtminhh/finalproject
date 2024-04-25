@@ -13,9 +13,18 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  /* background-image: url('https://st5.depositphotos.com/14323266/66016/i/450/depositphotos_660163400-stock-photo-seamless-fast-food-pattern-fast.jpg'); */
 
   background-color:azure;
+}
+
+.body-3 {
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  background-color:#436060 ;
 }
 
 a {

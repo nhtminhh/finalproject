@@ -30,7 +30,7 @@ app.use(session({
 var mongoose = require('mongoose');
 
 //1.B set mongodb connection string
-var database = "mongodb://localhost:27017/finalproject";
+var database = "mongodb+srv://project:1234Wibu123@project.drkkgnx.mongodb.net/project";
 
 //1.C connect to mongodb
 mongoose.connect(database)
@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //IMPORTANT: place this code before setting router url
 app.use((req, res, next) => {
   res.locals.name = req.session.name;
-  res.locals.id = req.session.id;
+  res.locals.userId = req.session.userId;
   res.locals.role = req.session.role;
   next();
 });

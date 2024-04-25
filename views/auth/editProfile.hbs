@@ -3,15 +3,13 @@
   style="background-color: #667470; border-radius: 10px; padding: 15px"
 >
   <form action="" method="post">
-    <h5 class="center-align bold"><b>EDIT MANAGER</b></h5>
+    <h5 class="center-align bold"><b>EDIT YOUR PROFILE</b></h5>
     <div class="row mb-4">
     <div class="form-outline" style="padding-top: 5px">
         {{#if error}}
           <p class="red-text" style="color: red;">{{error}}</p>
         {{/if}}
     </div>
-
-
     <div class="row mb-4">
       <label for=""><b>Name</b></label>
 
@@ -25,7 +23,7 @@
           minlength="3"
           autocomplete="off"
           placeholder="Name"
-          value="{{manager.name}}"
+          value="{{user.name}}"
         />
       </div>
     </div>
@@ -74,7 +72,7 @@
             required
             min="1"
             autocomplete="off"
-            value="{{manager.dob}}"
+            value="{{user.dob}}"
             max="2006-12-31" 
             oninvalid="this.setCustomValidity('Please select a date of birth before 2007')" 
             onchange="this.setCustomValidity('')"
@@ -94,7 +92,7 @@
             min="1"
             autocomplete="off"
             placeholder="Gender"
-            value="{{manager.gender}}"
+            value="{{user.gender}}"
 
           />
         </div>
@@ -113,7 +111,7 @@
           required
           autocomplete="off"
           placeholder="Email"
-          value="{{manager.email}}"
+          value="{{user.email}}"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="Email address must contain at least one '@' character"
         />
@@ -131,8 +129,8 @@
           autocomplete="off"
           name="address"
           minlength="1"
-         value="{{manager.address}}"
-
+         value="{{user.address}}"
+          required
         />
       </div>
     </div>

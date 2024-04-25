@@ -1,57 +1,72 @@
-<form action="/auth/register" method="post">
-   <h4 class="center-align bold">Register</h4>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Name</label>
-         <input class="validate" type="text" name="name" required id="" autocomplete="off">
+
+ <div class="container">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <div class="card border-rounded rounded">
+        <div class="card-content">
+          <form action="/auth/register" method="post">
+            <h4 class="center-align bold"><b>Register</b></h4>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="text" name="name" required id="name" autocomplete="off" minlength="3">
+                <label for="name">Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="email" name="email" required id="email" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$@" title="Email address must contain at least one '@' character">
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="password" name="password" required id="password" autocomplete="off">
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="password" name="retype" required id="retype" autocomplete="off">
+                <label for="retype">Retype Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="date" name="dob" required id="dob" autocomplete="off" max="2006-12-31" oninvalid="this.setCustomValidity('Please select a date of birth before 2007')" onchange="this.setCustomValidity('')">
+                <label for="dob">Date of birth</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <select class="validate browser-default" name="gender" required id="gender">
+                  <option value="" disabled selected>Choose your gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="validate" type="text" name="address" required id="address" autocomplete="off">
+                <label for="address">Address</label>
+              </div>
+            </div>
+                  <div class="row">
+            <div class="col s12">
+                {{#if error}}
+                  <p class="red-text">{{error}}</p>
+                {{/if}}
+            </div>
       </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Password</label>
-         <input class="validate" type="password" name="password" required id="password" autocomplete="off">
+            <div class="row">
+              <div class="col s12 center-align">
+                <button class="btn waves-effect waves-light" type="submit">Register</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Retype Password</label>
-         <span class="retype_error"></span>
-         <input class="validate" type="password" name="retype" required id="retype" autocomplete="off">
-      </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Date of birth</label>
-         <br><br>
-         <span class="retype_error"></span>
-         <input class="validate" type="date" name="dob" required id="dob" autocomplete="off">
-      </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Gender</label>
-         <span class="retype_error"></span>
-         <input class="validate" type="text" name="gender" required id="gender" autocomplete="off">
-      </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Address</label>
-         <span class="retype_error"></span>
-         <input class="validate" type="text" name="address" required id="address" autocomplete="off">
-      </div>
-   </div>
-   <div class="row">
-      <div class="input-field col s12 m4 offset-m4">
-         <label>Email</label>
-         <span class="retype_error"></span>
-         <input class="validate" type="text" name="email" required id="email" autocomplete="off">
-      </div>
-   </div>
-   <br>
-   <div class="row">
-      <div class="col s12 m4 offset-m4 center-align">
-         <input class="btn" type="submit" value="Register">
-      </div>
-   </div>
-</form>
+    </div>
+  </div>
+</div>

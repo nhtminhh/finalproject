@@ -1,0 +1,112 @@
+
+
+<div
+  class="container col s6"
+  style="background-color: #667470; border-radius: 10px; padding: 15px"
+>
+  <form action="" method="post">
+    <h5 class="center-align bold"><b>EDIT CUSTOMER</b></h5>
+    <div class="row mb-4">
+    <div class="form-outline" style="padding-top: 5px">
+        {{#if error}}
+          <p class="red-text" style="color: red;">{{error}}</p>
+        {{/if}}
+    </div>
+    <div class="row mb-4">
+      <label for=""><b>Name</b></label>
+
+      <div class="form-outline" style="padding-top: 5px">
+        <input
+          class="validate form-control"
+          type="text"
+          name="name"
+          id="name"
+          required
+          minlength="3"
+          autocomplete="off"
+          placeholder="Name"
+          value="{{customer.name}}"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <label for=""><b>Date of birth</b></label>
+
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="date"
+            name="dob"
+            id="dob"
+            required
+            min="1"
+            autocomplete="off"
+            value="{{customer.dob}}"
+
+          />
+        </div>
+      </div>
+      <div class="col">
+        <label for=""><b>Gender</b></label>
+
+        <div class="form-outline" style="padding-top: 5px">
+          <input
+            class="validate form-control"
+            type="text"
+            name="gender"
+            id="gender"
+            required
+            min="1"
+            autocomplete="off"
+            placeholder="Gender"
+            value="{{customer.gender}}"
+
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for=""><b>Email</b></label>
+
+      <div class="form-outline mb-4" style="padding-top: 5px">
+          <input
+              class="validate form-control"
+              type="email"
+              name="email"
+              id="email"
+              required
+              autocomplete="off"
+              placeholder="Email"
+              value="{{customer.email}}"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              title="Email address must contain at least one '@' character"
+          />
+      </div>
+
+    <div class="row">
+      <label for=""><b>Address</b></label>
+      <div class="form-outline mb-4" style="padding-top: 5px">
+        <input
+          class="form-control"
+          id="address"
+          placeholder="Address"
+          type="text"
+          autocomplete="off"
+          name="address"
+          minlength="1"
+         value="{{customer.address}}"
+
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-outline mb-4">
+        <input class="btn btn-success" type="submit" value="Edit" />
+      </div>
+    </div>
+
+  </form>
+</div>

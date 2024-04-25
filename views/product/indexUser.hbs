@@ -37,30 +37,33 @@
           style="margin-top: 12px;"
         />
         <div class="card-body">
-          <h6
-            class="card-title"
-            style="font-weight: bold; text-align:center; color:darkblue"
-          >{{name}}</h6>
+          <div style="text-align: center;">
+          <a
+            href="/product/detail/{{_id}}"
+            class="card-title h6"
+            style="font-weight: bold; color:darkblue"
+          >{{name}}</a>
+          </div>
+          
+          
           <h6><b>Type:</b>
             {{category.name}}</h6>
 
           <h6><b>Price:</b> ${{price}}</h6>
           <h6><b>Sold:</b> {{sold}}</h6>
-          <h6><b>Quantity:</b> </h6>
-
-          <div style="margin-top: 20px;">
-            <a
-              href="#"
-              class="btn btn-success"
-              style="width: 80px;  margin-left: 15px"
-            ><i class="bi bi-bag-plus-fill"></i></a>
-            <a
-              href="/product/detail/{{_id}}"
-              class="btn btn-success"
-              style="width: 80px; margin-left: 15px"
-            ><i class="bi bi-info-square-fill"></i></a>
+          <div>
+          <h6 style="display: inline-block; margin-right: 5px;"><b>Quantity:</b> </h6>
+          <input type="number" name ='quantity' class="quantity-input" value="1" min="1" max="10">
           </div>
 
+
+          <div style="margin-top: 20px; "> 
+            <a
+              href="/cart/add"
+              class="btn btn-success "
+              style="width: 80px;  margin-left: 70px"
+            ><i class="bi bi-bag-plus-fill"></i></a>
+          </div>
         </div>
       </div>
     {{/each}}

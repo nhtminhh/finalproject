@@ -1,1 +1,13 @@
-<h1>this is detail profile</h1>
+<div class="container">
+<h2 style="text-align: center"><b>User Information</b></h2>
+        <div class="card border-primary mb-3">
+            <div class="card-header">Hello <b>{{user.name}}</b>, this is your information</div>
+            <div class="card-body">
+                <p class="card-text"><b>Date of Birth:</b> {{user.dob}} </p>
+                <p class="card-text"><b>Email:</b> {{user.email}}</p>
+                <p class="card-text"><b>Gender:</b> {{user.gender}}</p>
+                <p class="card-text"><b>Address:</b> {{user.address}}</p>
+                <a href="/auth/edit/{{userId}}" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+</div>

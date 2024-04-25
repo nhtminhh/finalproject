@@ -1,7 +1,7 @@
 var express = require('express');
 const ProductModel = require('../models/ProductModel');
 const CategoryModel = require('../models/CategoryModel');
-const { checkSingleSession, checkMultipleSession, checkAdminSession } = require('../middlewares/auth');
+const { checkSingleSession, checkMultipleSession, checkAdminSession, checkCustomerSession } = require('../middlewares/auth');
 const { Model } = require('mongoose');
 var router = express.Router();
 
@@ -22,30 +22,65 @@ const storage = multer.diskStorage(
 
 const upload = multer({ storage: storage })
 
-//feature: show all product
-//URL:  localhost:3000/product
-//SQL: SELECT * FROM product
-//IMPORTANCE: muse inlude "async", "await"
-// router.get('/', async (req, res) =>{
-//     var productList = await ProductModel.find({}).populate('category');
-//     //load data
-//     //res.send(productList);
-//     //File location: views/product/index.hbs
 
-//     // { layout: 'layout_name'} => set custom layout
-//    //  res.render('product/index', {productList, layout: 'layout2'});
-//     res.render('product/index', {productList});
-
-// });
 
 router.get('/', checkMultipleSession(['customer', 'admin', 'manager']), async (req, res) => {
    var productList = await ProductModel.find({}).populate('category');
    if (req.session.role == "customer"){
       res.render('product/indexUser', { productList, layout: 'layout2' });
    }
+   else if (req.session.role == "manager"){
+      res.render('product/index', { productList, layout: 'layout3' });
+   }
    else
       res.render('product/index', { productList });
 });
+
+router.get('/allproduct', checkCustomerSession, async(req, res)=>{
+   var productList = await ProductModel.find({}).populate('category');
+   res.render('product/indexUser', { productList, layout: 'layout2' });
+})
+
+// const ITEMS_PER_PAGE = 10; // Số lượng sản phẩm trên mỗi trang
+
+// router.get('/', checkMultipleSession(['customer', 'admin', 'manager']), async (req, res) => {
+//     try {
+//         let page = parseInt(req.query.page) || 1; // Trang hiện tại, mặc định là trang 1
+//         const productListCount = await ProductModel.countDocuments({}); // Tổng số sản phẩm
+
+//         const totalPages = Math.ceil(productListCount / ITEMS_PER_PAGE); // Tính tổng số trang
+
+//         // Giới hạn số trang từ 1 đến totalPages
+//         page = Math.max(1, Math.min(page, totalPages));
+
+//         // Tính chỉ số bắt đầu của sản phẩm trong database
+//         const startIndex = (page - 1) * ITEMS_PER_PAGE;
+
+        
+
+//         // Lấy danh sách sản phẩm cho trang hiện tại
+//         const productList = await ProductModel.find({})
+//             .populate('category')
+//             .skip(startIndex)
+//             .limit(ITEMS_PER_PAGE);
+
+//          const pageNumbers = [];
+//          for (let i = 1; i <= totalPages; i++) {
+//             pageNumbers.push(i);
+//          }
+//         // Render view với danh sách sản phẩm và thông tin phân trang
+//         if (req.session.role === "customer") {
+//             res.render('product/indexUser', { productList, currentPage: page, totalPages, layout: 'layout2' });
+//         } else if (req.session.role === "manager") {
+//             res.render('product/index', { productList, currentPage: page, totalPages, layout: 'layout3' });
+//         } else {
+//             res.render('product/index', { productList, currentPage: page, totalPages });
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 router.get('/detail/:id', async (req, res) =>{
    var id = req.params.id;
@@ -53,15 +88,17 @@ router.get('/detail/:id', async (req, res) =>{
    res.render('product/detail', {product, layout: 'layout2' });
 });
 
-router.get('dashboard', async(req, res)=>{
+// router.get('dashboard', async(req, res)=>{
    
-})
+// })
 
-   //var productQuantity = product.quantity;
-
-router.get('/add', checkAdminSession, async (req, res) =>
+router.get('/add', checkMultipleSession(['admin', 'manager']), async (req, res) =>
 {
-    var categoryList = await CategoryModel.find({});
+   var categoryList = await CategoryModel.find({});
+   if (req.session.role == "manager"){
+    res.render('product/add', {categoryList, layout: 'layout3'});
+   }
+   else
     res.render('product/add', {categoryList});
 });
 
@@ -85,32 +122,17 @@ router.post('/add', upload.single('image'), async(req,res)=>{
    }
 });
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', checkMultipleSession(['admin', 'manager']), async (req, res) => {
     var id = req.params.id;
     var categoryList = await CategoryModel.find({});
     var product = await ProductModel.findById(id);
+    if (req.session.role == "manager"){
+   res.render('product/edit', { product, categoryList, layout:'layout3' });
+    }
+    else
     res.render('product/edit', { product, categoryList });
  })
  
-//  router.post('/edit/:id', upload.single('image'), async (req, res) => {
-//    try{
-//       var id = req.params.id;
-//       var data = req.body;
-//       var product = await ProductModel.findById(id);
-//       product.image = prefix + "_" + req.file.originalname;
-//       await ProductModel.findByIdAndUpdate(id, data);
-//       res.redirect('/product');
-//    }
-//    catch(err){
-//       if (err.name === 'ValidationError') {
-//          let InputErrors = {};
-//          for (let field in err.errors) {
-//             InputErrors[field] = err.errors[field].message;
-//          }
-//          res.render('product/edit:id', { InputErrors, product });
-//       }
-//    }   
-//  })
 
 router.post('/edit/:id', upload.single('image'), async (req, res) => {
    try {
@@ -151,8 +173,25 @@ router.post('/edit/:id', upload.single('image'), async (req, res) => {
 });
 
 
- 
- router.get('/delete/:id', async (req, res) => {
+// router.post('/addProduct/:id', async(req, res)=>{
+//    var product = req.params.id;
+//    var productData = await ProductModel.findById(product);
+//    var quantity = req.body.quantity
+//    var productPrice = productData.price
+//    var total = productPrice * quantity;
+
+//    var customer = req.session.id;
+//    await CartModel.create({
+//        customer: customer,
+//        product : product,
+//        quantity: quantity,
+//        total: total,
+//    })
+//    res.render('/product')
+// })
+
+
+ router.get('/delete/:id', checkMultipleSession(['admin', 'manager']), async (req, res) => {
     var id = req.params.id;
     await ProductModel.findByIdAndDelete(id);
     res.redirect('/product');
@@ -164,6 +203,9 @@ router.post('/edit/:id', upload.single('image'), async (req, res) => {
     if (req.session.role == "customer"){
       res.render('product/indexUser', { productList, layout: 'layout2' });
    }
+   else if (req.session.role == "manager"){
+      res.render('product/index', { productList, layout: 'layout3' });
+   }
    else
       res.render('product/index', { productList });
  });
@@ -173,6 +215,9 @@ router.post('/edit/:id', upload.single('image'), async (req, res) => {
     if (req.session.role == "customer"){
    res.render('product/indexUser', { productList, layout: 'layout2' });
     }
+    else if (req.session.role == "manager"){
+      res.render('product/index', { productList, layout: 'layout3' });
+   }
     else
     res.render('product/index', {productList});
  });
@@ -182,6 +227,9 @@ router.post('/edit/:id', upload.single('image'), async (req, res) => {
     if (req.session.role == "customer"){
       res.render('product/indexUser', { productList, layout: 'layout2' });
     }
+    else if (req.session.role == "manager"){
+      res.render('product/index', { productList, layout: 'layout3' });
+   }
     else
     res.render('product/index', {productList});
  });

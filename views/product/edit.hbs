@@ -2,7 +2,7 @@
   class="container col s6"
   style="background-color: #667470; border-radius: 10px; padding: 15px"
 >
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
     <h5 class="center-align bold"><b>EDIT PRODUCT</b></h5>
     <div class="row mb-4">
       <label for=""><b>Product name</b></label>
@@ -85,22 +85,10 @@
     </div>
 
     <div class="row">
-      {{!-- <label for=""><b>Product image</b></label>
-      <div class="form-outline mb-4" style="padding-top: 5px">
-        <input
-          class="validate form-control"
-          type="text"
-          name="image"
-          id=""
-          required
-          autocomplete="off"
-          placeholder="Product image"
-          value="{{product.image}}"
-        />
-      </div> --}}
+
     <label for=""><b>Product image</b></label>
       <div class="form-outline mb-4" style="padding-top: 5px">
-        <input type="file" accept="image/*" name="image" id="" required>
+        <input type="file" accept="image/*" name="image" id="">
       </div>
     </div>
     <img class="form-outline mb-4" style="padding-top: 5px" src="/images/{{product.image}}" width="100" length="100">
