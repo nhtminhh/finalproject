@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
 var CartSchema = mongoose.Schema(
-    {
-        total: Number,
-        quantity: Number,
+    {      
         customer:{
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'users'
         },
-        product: {           //"product"    : name of reference field
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: 'products'  //"products"  : name of reference collection
-         }
+        products: [{     
+            quantity: Number,
+            name: String,
+            price: Number,
+            image: String
+         }],
+         status: String
     }
 )
 

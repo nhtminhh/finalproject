@@ -12,9 +12,9 @@
     </tr>
     {{#each cartList }}
     <tr>
-        <td>{{product.name}}</td>
-        <td><img src="/images/{{product.image}}" width="100" height="100"></td>
-        <td>{{product.price}}</td>
+        <td>{{name}}</td>
+        <td><img src="/images/{{image}}" width="100" height="100"></td>
+        <td>{{price}}</td>
         <td>{{quantity}}</td>
         <td>{{total}}</td>
         <td>
@@ -23,6 +23,13 @@
         </a>
         </td>
     {{/each}}
+       <form action="/cart/changeStatus" method="post">
+        <input 
+            type="submit"
+              class="btn btn-success "
+              style="width: 80px;  margin-left: 70px"
+            ><i class="bi bi-bag-plus-fill">123123123123123123</i></input>
+      </form>
 </table>
 
 </div>

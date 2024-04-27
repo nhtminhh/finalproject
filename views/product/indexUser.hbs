@@ -1,3 +1,5 @@
+
+
 <div class="container">
 <h3 style="text-align: center;"><b>Product List</b></h3>
   <div class="row">
@@ -27,7 +29,11 @@
 
   <div class="row">
     {{#each productList}}
-      <div class="card" style="width: 18rem; margin: 2px">
+
+    <form action="/cart/add" method="post">
+    <input type="hidden" value="{{_id}}" id="id" name="id"> 
+
+ <div class="card" style="width: 18rem; margin: 2px">
         <img
           class="card-img-top"
           src="/images/{{image}}"
@@ -53,19 +59,22 @@
           <h6><b>Sold:</b> {{sold}}</h6>
           <div>
           <h6 style="display: inline-block; margin-right: 5px;"><b>Quantity:</b> </h6>
-          <input type="number" name ='quantity' class="quantity-input" value="1" min="1" max="10">
+          <input type="number" id ='quantity' name ='quantity' class="quantity-input" value="1" min="1" max="10">
           </div>
 
 
           <div style="margin-top: 20px; "> 
-            <a
-              href="/cart/add"
+            <input 
+            type="submit"
               class="btn btn-success "
               style="width: 80px;  margin-left: 70px"
-            ><i class="bi bi-bag-plus-fill"></i></a>
+            ><i class="bi bi-bag-plus-fill"></i></input>
           </div>
         </div>
       </div>
+</form>
+   
+
     {{/each}}
   </div>
 </div>
