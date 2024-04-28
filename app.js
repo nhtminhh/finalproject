@@ -10,6 +10,8 @@ var productRouter = require('./routes/product');
 var categoryRouter = require('./routes/category');
 var authRouter = require('./routes/auth');
 var cartRouter = require('./routes/cart');
+var orderRouter = require('./routes/order');
+
 
 var app = express();
 
@@ -69,6 +71,8 @@ const { checkSingleSession, checkAdminSession, checkCustomerSession } = require(
 app.use('/category', checkSingleSession);
 app.use('/product', checkSingleSession);
 app.use('/cart', checkCustomerSession);
+app.use('/order', checkSingleSession);
+
 
 
 app.use('/', indexRouter);
@@ -77,6 +81,8 @@ app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
+app.use('/order', orderRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -41,46 +41,6 @@ router.get('/allproduct', checkCustomerSession, async(req, res)=>{
    res.render('product/indexUser', { productList, layout: 'layout2' });
 })
 
-// const ITEMS_PER_PAGE = 10; // Số lượng sản phẩm trên mỗi trang
-
-// router.get('/', checkMultipleSession(['customer', 'admin', 'manager']), async (req, res) => {
-//     try {
-//         let page = parseInt(req.query.page) || 1; // Trang hiện tại, mặc định là trang 1
-//         const productListCount = await ProductModel.countDocuments({}); // Tổng số sản phẩm
-
-//         const totalPages = Math.ceil(productListCount / ITEMS_PER_PAGE); // Tính tổng số trang
-
-//         // Giới hạn số trang từ 1 đến totalPages
-//         page = Math.max(1, Math.min(page, totalPages));
-
-//         // Tính chỉ số bắt đầu của sản phẩm trong database
-//         const startIndex = (page - 1) * ITEMS_PER_PAGE;
-
-        
-
-//         // Lấy danh sách sản phẩm cho trang hiện tại
-//         const productList = await ProductModel.find({})
-//             .populate('category')
-//             .skip(startIndex)
-//             .limit(ITEMS_PER_PAGE);
-
-//          const pageNumbers = [];
-//          for (let i = 1; i <= totalPages; i++) {
-//             pageNumbers.push(i);
-//          }
-//         // Render view với danh sách sản phẩm và thông tin phân trang
-//         if (req.session.role === "customer") {
-//             res.render('product/indexUser', { productList, currentPage: page, totalPages, layout: 'layout2' });
-//         } else if (req.session.role === "manager") {
-//             res.render('product/index', { productList, currentPage: page, totalPages, layout: 'layout3' });
-//         } else {
-//             res.render('product/index', { productList, currentPage: page, totalPages });
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
 
 router.get('/detail/:id', async (req, res) =>{
    var id = req.params.id;

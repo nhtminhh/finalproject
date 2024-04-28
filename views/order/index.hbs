@@ -1,0 +1,71 @@
+<div class="container">
+<h5 style="text-align: center;"><b>Order List</b></h5>
+<table class="table table-dark">
+  <thead>
+    <tr>
+        <th scope="col">Customer</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Product name</th>
+        {{!-- <th scope="col">Image</th> --}}
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+    </tr>
+  </thead>
+    {{#each orderList }}
+  <tbody>
+    <tr>
+      <td>{{customer.name}}</td>
+      <td>{{customer.email}}</td>
+      <td>{{customer.address}}</td>
+      <td>
+      {{#each products}}
+        {{this.name}}
+        <br>
+          {{/each}}
+            </td>
+              {{!-- <td>
+                {{#each products}}
+                  <img src="/images/{{this.image}}" alt="Product Image" style="width: 50px;">
+                  <br>
+                {{/each}}
+                </td> --}}
+                <td>
+                    {{#each products}}
+                    {{this.quantity}}
+                    <br>
+                    {{/each}}
+                </td>
+                <td id="total_{{@index}}"></td>
+
+                {{!-- <td>
+                    {{#each products}}
+                    {{this.quantity * this.pr}}
+                    <br>
+                    {{/each}}
+                </td> --}}
+      </td>
+    </tr>
+  </tbody>
+      {{/each}}
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lặp qua mỗi đơn hàng
+        {{#each orderList }}
+            // Khởi tạo biến tổng giá trị cho mỗi đơn hàng
+            var totalOrder = 0;
+            // Lặp qua mỗi sản phẩm trong đơn hàng
+            {{#each products }}
+                // Tính toán tổng giá trị của sản phẩm
+                var totalProduct = {{this.quantity}} * {{this.price}};
+                // Cộng tổng giá trị của sản phẩm vào tổng giá trị của đơn hàng
+                totalOrder += totalProduct;
+            {{/each}}
+            // Hiển thị tổng giá trị của đơn hàng
+            document.getElementById("total_{{@index}}").innerText = totalOrder;
+        {{/each}}
+    });
+</script>
+

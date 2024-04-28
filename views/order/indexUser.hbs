@@ -1,0 +1,43 @@
+
+<div class="container">
+<h3 style="text-align: center;"><b>Order List</b></h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Total</th>
+        {{!-- <th scope="col">Image</th> --}}
+    </tr>
+  </thead>
+{{#each orderCustomer }}
+    {{#each products }}
+  <tbody>
+    <tr>
+      <td>{{this.name}}</td>
+      <td><img src="/images/{{this.image}}" alt="" height="70" width="70"></td>
+      <td>{{this.quantity}}</td>
+      <td>{{this.price}}</td>
+      <td id="total_{{@index}}"></td>
+    </tr>
+  </tbody>
+      {{/each}}
+{{/each}}
+
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lặp qua mỗi sản phẩm trong đơn hàng
+        {{#each orderCustomer }}
+            {{#each products }}
+                // Tính toán tổng giá trị của sản phẩm
+                var total = {{this.price}} * {{this.quantity}};
+                // Hiển thị tổng giá trị trong cột "Total"
+                document.getElementById("total_{{@index}}").innerText = total;
+            {{/each}}
+        {{/each}}
+    });
+</script>

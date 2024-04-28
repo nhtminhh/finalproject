@@ -1,14 +1,21 @@
 var express = require('express')
 const CartModel = require('../models/CartModel');
 const ProductModel = require('../models/ProductModel');
-const { checkCustomerSession } = require('../middlewares/auth');
+const { checkCustomerSession, checkMultipleSession } = require('../middlewares/auth');
 
 var router = express.Router()
 
 router.get('/', checkCustomerSession, async (req, res) => {
     try {
         userId = req.session.userId;
-        var cartList = await CartModel.findOne({ customer: userId }).populate('customer');
+        var cartList = await CartModel.findOne({ customer: userId, status: 'Ordering'}).populate('customer');
+
+        if (!cartList) {
+            console.log('Cart not found for user:', userId);
+            res.render('cart/index', { cartList: [], layout: 'layout2' });
+            return;
+        }
+        
         const products = cartList.products?.map(product => {
             return {
                 quantity: Number(product.quantity),
@@ -18,6 +25,7 @@ router.get('/', checkCustomerSession, async (req, res) => {
                 total: Number(product.quantity) * Number(product.price),
             }
         })
+        
         res.render('cart/index', { cartList: products, layout: 'layout2' });
         console.log(userId)
         console.log(cartList)
@@ -63,6 +71,7 @@ router.post('/add', checkCustomerSession, async (req, res) => {
     else {
         await CartModel.create({
             customer: customer,
+            status: 'Ordering',
             products: [{
                 quantity: quantity,
                 name: productName,
@@ -71,15 +80,13 @@ router.post('/add', checkCustomerSession, async (req, res) => {
             }],
         })
     }
-
-    res.render('/product/')
+    res.redirect('/product');
 })
 
 router.post('/changeStatus', checkCustomerSession, async (req, res) => {
     var customer = req.session.userId;
-    await CartModel.findOneAndUpdate({ customer: customer, status: 'Ordering' }, {
-                status: "Ordered"
-            })
+    await CartModel.findOneAndUpdate({ customer: customer, status: 'Ordering' }, {status: "Ordered"})
+    res.redirect('/product');
 })
 
 router.get('/delete/:id', checkCustomerSession, async (req, res) => {
@@ -87,5 +94,9 @@ router.get('/delete/:id', checkCustomerSession, async (req, res) => {
     await CartModel.findByIdAndDelete(id);
     res.redirect('/cart');
 });
+
+
+
+
 
 module.exports = router;

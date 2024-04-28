@@ -30,8 +30,7 @@
   <div class="row">
     {{#each productList}}
 
-    <form action="/cart/add" method="post">
-    <input type="hidden" value="{{_id}}" id="id" name="id"> 
+ 
 
  <div class="card" style="width: 18rem; margin: 2px">
         <img
@@ -51,7 +50,8 @@
           >{{name}}</a>
           </div>
           
-          
+<form action="/cart/add" method="post">
+    <input type="hidden" value="{{_id}}" id="id" name="id">  
           <h6><b>Type:</b>
             {{category.name}}</h6>
 
@@ -64,11 +64,7 @@
 
 
           <div style="margin-top: 20px; "> 
-            <input 
-            type="submit"
-              class="btn btn-success "
-              style="width: 80px;  margin-left: 70px"
-            ><i class="bi bi-bag-plus-fill"></i></input>
+            <input type="submit" class="btn btn-success " value="Order" style="width: 80px;  margin-left: 70px">
           </div>
         </div>
       </div>
