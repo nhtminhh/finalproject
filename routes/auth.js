@@ -2,6 +2,8 @@ var express = require('express')
 const UserModel = require('../models/UserModel');
 var router = express.Router()
 const moment = require('moment');
+const nodemailer = require('nodemailer');
+
 
 
 //import "bcryptjs" library
@@ -9,6 +11,15 @@ var bcrypt = require('bcryptjs');
 const { checkAdminSession } = require('../middlewares/auth');
 var salt = 8;                     
 //random value
+
+// Cấu hình transporter
+const transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+       user: 'minhtngch200030@fpt.edu.vn', // Địa chỉ email của bạn
+       pass: 'wbsr wawc wvrq xwgo' // Mật khẩu email của bạn
+   }
+});
 
 router.get('/register', (req, res) => {
     res.render('auth/register', { layout: 'auth_layout' })
@@ -38,6 +49,23 @@ router.get('/register', (req, res) => {
          role: 'customer'
       }
       await UserModel.create(user);
+
+              // Gửi email thông báo đăng ký thành công
+              let mailOptions = {
+               from: 'minhtngch200030@fpt.edu.vn', // Địa chỉ email của bạn
+               to: user.email, // Địa chỉ email người nhận
+               subject: 'Registration Successful',
+               text: 'Hello ' + user.name + ',\n\nThank you for registering with us! Enjoy!!!' // Nội dung email
+           };
+           
+           transporter.sendMail(mailOptions, function(error, info) {
+               if (error) {
+                   console.log(error);
+               } else {
+                   console.log('Email sent: ' + info.response);
+               }
+           });
+
       console.log(user);
       res.redirect('/auth/login')
    } catch (err) {

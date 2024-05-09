@@ -15,7 +15,7 @@
     {{#each managerList }}
     <tr>
         <td>{{name}}</td>
-        <td>{{dob}}</td>
+        <td><span class="birth-date">{{dob}}</span></td>
         <td>{{gender}}</td>
         <td>{{address}}</td>
         <td>{{email}}</td>
@@ -30,3 +30,22 @@
     </tr>
     {{/each}}
 </table>
+
+<script>
+        // Function to format date
+        function formatDate(dateString) {
+            var birthDate = new Date(dateString);
+            return birthDate.toLocaleDateString("en-US", {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Loop through all elements with class "birth-date" and format the date
+        document.querySelectorAll('.birth-date').forEach(function(element) {
+            var formattedDate = formatDate(element.innerText);
+            element.innerText = formattedDate;
+        });
+</script>

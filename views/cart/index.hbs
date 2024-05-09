@@ -1,41 +1,60 @@
 <div class="container">
-<h3 style="text-align: center;"><b>Cart List</b></h3>
+    <h3 style="text-align: center;"><b>Cart List</b></h3>
 
-  <table class="table table-striped">
-      <tr>
-          <th>Name</th>
-          <th>Image</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-          <th>Option</th>
-      </tr>
-      {{#each cartList }}
-      <tr>
-          <td>{{name}}</td>
-          <td><img src="/images/{{image}}" width="100" height="100"></td>
-          <td>{{price}}</td>
-          <td>{{quantity}}</td>
-          <td>{{total}}</td>
-          <td>
-          <a type="button" class="btn btn-warning" href="/cart/delete/{{_id}}" onclick="return confirm('Are you sure to remove this form Cart??')">
-            <i class="material-icons" >delete</i>
-          </a>
-          </td>
-      {{/each}}
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price ($) </th>
+            <th>Quantity</th>
+            <th>Total ($)</th>
+            <th>Option</th>
+        </tr>
+        {{#each cartList }}
+        <tr>
+            <td>{{name}}</td>
+            <td><img src="/images/{{image}}" width="100" height="100"></td>
+            <td>{{price}}</td>
+            <td>{{quantity}}</td>
+            <td>{{total}}</td>
+            <td>
+                <a type="button" class="btn btn-warning" href="/cart/delete/{{id}}" onclick="return confirm('Are you sure to remove this from Cart??')">            
+                    <i class="material-icons">delete</i>
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+        <tr>
+            <td colspan="4"><b style="color: red;">Total:</b></td>
+            <td><b style="color: red;" id="totalPrice"></b></td>
+            <td></td>
+        </tr>
+    </table>
 
-  </table>
-
-  {{#if cartList.length}}
-  <form action="/cart/changeStatus" method="post">
-    <input 
+    {{#if cartList.length}}
+    <form action="/cart/changeStatus" method="post">
+        <input 
             type="submit"
-              class="btn btn-success "
-              value="order"
-              style="width: 80px;  margin-left: 70px"
-              onclick="return confirm('You want to Order this product?')">
-    </input>
-  </form>
-  {{/if}}
+            class="btn btn-success"
+            value="order"
+            style="width: 80px; margin-left: 70px;"
+            onclick="return confirm('You want to Order this product?')">
+    </form>
+    {{/if}}
+
 
 </div>
+
+<script>
+    // JavaScript code to calculate total price
+    document.addEventListener('DOMContentLoaded', function() {
+        var totalPrice = 0;
+        var totalCells = document.querySelectorAll('td:nth-child(5)'); // Selecting all cells in the "Total" column
+
+        totalCells.forEach(function(cell) {
+            totalPrice += parseFloat(cell.textContent || cell.innerText);
+        });
+
+        document.getElementById('totalPrice').textContent = totalPrice.toFixed(2); // Displaying the total price
+    });
+</script>

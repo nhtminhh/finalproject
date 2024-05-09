@@ -3,7 +3,7 @@
         <div class="card border-primary mb-3">
             <div class="card-header">Hello <b>{{user.name}}</b>, this is your information</div>
             <div class="card-body">
-                <p class="card-text"><b>Date of Birth:</b> {{user.dob}} </p>
+                <p class="card-text"><b>Date of Birth:</b> <span class="birth-date">{{user.dob}}</span> </p>
                 <p class="card-text"><b>Email:</b> {{user.email}}</p>
                 <p class="card-text"><b>Gender:</b> {{user.gender}}</p>
                 <p class="card-text"><b>Address:</b> {{user.address}}</p>
@@ -11,3 +11,22 @@
             </div>
         </div>
 </div>
+
+<script>
+        // Function to format date
+        function formatDate(dateString) {
+            var birthDate = new Date(dateString);
+            return birthDate.toLocaleDateString("en-US", {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Loop through all elements with class "birth-date" and format the date
+        document.querySelectorAll('.birth-date').forEach(function(element) {
+            var formattedDate = formatDate(element.innerText);
+            element.innerText = formattedDate;
+        });
+</script>

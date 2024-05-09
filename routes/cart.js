@@ -23,6 +23,7 @@ router.get('/', checkCustomerSession, async (req, res) => {
                 price: Number(product.price),
                 image: product.image,
                 total: Number(product.quantity) * Number(product.price),
+                id: product._id.toString(),
             }
         })
         
@@ -47,7 +48,7 @@ router.post('/add', checkCustomerSession, async (req, res) => {
     // var total = productPrice * quantity;
 
     var customer = req.session.userId;
-    let existsCart = await CartModel.findOne({ customer: customer });
+    let existsCart = await CartModel.findOne({ customer: customer, status: 'Ordering'});
 
     if (existsCart) {
         const existsProduct = existsCart.products.findIndex(p => p.name === productName && p.price === productPrice && p.image === productImage);
@@ -91,12 +92,17 @@ router.post('/changeStatus', checkCustomerSession, async (req, res) => {
 
 router.get('/delete/:id', checkCustomerSession, async (req, res) => {
     var id = req.params.id;
-    await CartModel.findByIdAndDelete(id);
+    var customer = req.session.userId;
+    let existsCart = await CartModel.findOne({ customer: customer, status: 'Ordering'});
+    if (existsCart) {
+        const products = existsCart.products.filter(p => p._id.toString() !== id);
+        await CartModel.findOneAndUpdate({ _id: existsCart._id }, {
+            products
+        })
+    }
     res.redirect('/cart');
 });
 
-
-
-
-
 module.exports = router;
+
+

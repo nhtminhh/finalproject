@@ -1,15 +1,16 @@
 <div class="container">
-<h5 style="text-align: center;"><b>Order List</b></h5>
-<table class="table table-dark">
+<h5 style="text-align: center;"><b>ORDER LIST</b></h5>
+<table class="table table-striped table-dark">
   <thead>
     <tr>
         <th scope="col">Customer</th>
         <th scope="col">Email</th>
         <th scope="col">Address</th>
         <th scope="col">Product name</th>
+        <th scope="col">Price($)</th>
         {{!-- <th scope="col">Image</th> --}}
         <th scope="col">Quantity</th>
-        <th scope="col">Total</th>
+        <th scope="col"><b style="color: red;">Total($)</b></th>
     </tr>
   </thead>
     {{#each orderList }}
@@ -24,12 +25,14 @@
         <br>
           {{/each}}
             </td>
-              {{!-- <td>
-                {{#each products}}
-                  <img src="/images/{{this.image}}" alt="Product Image" style="width: 50px;">
-                  <br>
-                {{/each}}
-                </td> --}}
+            <td>
+              {{#each products}}
+              {{this.price}}
+              <br>
+              {{/each}}
+
+            </td>
+
                 <td>
                     {{#each products}}
                     {{this.quantity}}
@@ -38,12 +41,6 @@
                 </td>
                 <td id="total_{{@index}}"></td>
 
-                {{!-- <td>
-                    {{#each products}}
-                    {{this.quantity * this.pr}}
-                    <br>
-                    {{/each}}
-                </td> --}}
       </td>
     </tr>
   </tbody>

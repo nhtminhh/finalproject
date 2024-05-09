@@ -44,6 +44,9 @@
             min="1"
             autocomplete="off"
             value="{{customer.dob}}"
+            max="2008-12-31" 
+            oninvalid="this.setCustomValidity('Please select a date of birth before 2007')" 
+            onchange="this.setCustomValidity('')"
 
           />
         </div>
